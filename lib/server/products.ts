@@ -1,5 +1,5 @@
-import { ean13Failure, isDigitString } from '../ean.ts'
-import { findProductByCode, searchProductsByPrefix, toSummary } from './catalog.ts'
+import { ean13Failure, isDigitString } from '../ean.js'
+import { findProductByCode, searchProductsByPrefix, toSummary } from './catalog.js'
 
 const MIN_PREFIX = 3
 

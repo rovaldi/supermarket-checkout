@@ -1,7 +1,7 @@
-import { ean13Failure } from '../ean.ts'
-import { lineTotalCents, sumCents } from '../money.ts'
-import { paymentMethods, type ApiErrorCode, type PaymentMethod, type SaleLineResult, type SaleResponse } from '../types.ts'
-import { findProductByCode } from './catalog.ts'
+import { ean13Failure } from '../ean.js'
+import { lineTotalCents, sumCents } from '../money.js'
+import { paymentMethods, type ApiErrorCode, type PaymentMethod, type SaleLineResult, type SaleResponse } from '../types.js'
+import { findProductByCode } from './catalog.js'
 
 export const SALE_TICKET = '1042'
 

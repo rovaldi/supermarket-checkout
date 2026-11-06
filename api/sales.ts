@@ -1,4 +1,4 @@
-import { createSale } from '../lib/server/sales.ts'
+import { createSale } from '../lib/server/sales.js'
 
 export async function POST(request: Request): Promise<Response> {
   let body: unknown

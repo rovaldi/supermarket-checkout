@@ -1,4 +1,4 @@
-import type { Product, ProductSummary } from '../types.ts'
+import type { Product, ProductSummary } from '../types.js'
 
 /**
  * Fictional in-store catalog. Barcodes use prefix 200 and a valid EAN-13
