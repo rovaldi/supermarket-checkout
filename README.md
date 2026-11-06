@@ -4,6 +4,8 @@ Aplicación de punto de venta para un supermercado, desarrollada como prueba té
 
 El catálogo y los datos utilizados son de demostración.
 
+La aplicación publicada está en [supermarket-checkout-rob.vercel.app](https://supermarket-checkout-rob.vercel.app/).
+
 Para conocer las decisiones de implementación y qué funcionalidades están simuladas, consulta la [documentación de la entrega](docs/entrega.md). Para probar la aplicación, tienes una [guía de demostración](docs/demo-guide.md) con los códigos del catálogo y algunos casos de prueba.
 
 ## Requisitos
