@@ -1,0 +1,45 @@
+html {
+  font-size: 62.5%; // With html at 62.5%, 1rem = 10px.
+}
+
+body {
+  background-color: var(--color__brand--foreground);
+  color: var(--color__text--primary);
+  font-family: var(--font-family--primary);
+  font-size: var(--font-size--medium);
+  font-weight: var(--font-weight--regular);
+  line-height: 1.5;
+}
+
+body.checkout-modal {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+.visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color__brand--accent);
+  outline-offset: 2px;
+}
