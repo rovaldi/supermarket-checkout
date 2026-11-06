@@ -1,0 +1,120 @@
+.scrim {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: var(--spacing--medium);
+  position: fixed;
+  z-index: 3;
+
+  &__shade {
+    animation: scrim-in var(--transition--default) both;
+    background: color-mix(in srgb, var(--color__text--primary) 40%, transparent);
+    inset: 0;
+    position: absolute;
+  }
+
+  &--out &__shade {
+    animation: scrim-out var(--transition--default) both;
+  }
+}
+
+.modal {
+  animation: modal-in var(--transition--default) both;
+  background: var(--color__surface--secondary);
+  border-radius: var(--rounded--large);
+  box-shadow: var(--shadow--overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--medium);
+  max-height: calc(100dvh - var(--spacing--large));
+  max-width: 56rem;
+  overflow: auto;
+  padding: var(--spacing--large);
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--out {
+    animation: modal-out var(--transition--default) both;
+  }
+
+  &__header {
+    align-items: center;
+    display: flex;
+    gap: var(--spacing--small);
+  }
+
+  &__title,
+  &__title--center {
+    color: var(--color__text--primary);
+    flex: 1;
+    font-size: var(--font-size--large);
+    font-weight: var(--font-weight--semibold);
+  }
+
+  &__title--center {
+    text-align: center;
+  }
+
+  &__close {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--color__text--primary);
+    display: flex;
+    flex-shrink: 0;
+    height: var(--spacing--touch);
+    justify-content: center;
+    width: var(--spacing--touch);
+  }
+
+  &__actions,
+  &__actionsSingle {
+    display: flex;
+    gap: var(--spacing--small);
+  }
+
+  &__actions > * {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim__shade,
+  .scrim--out .scrim__shade,
+  .modal,
+  .modal--out {
+    animation: none;
+  }
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes scrim-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+}
+
+@keyframes modal-out {
+  to {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+}
