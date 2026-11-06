@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Yarn local state (node_modules linker; regenerated on install)
+.yarn/install-state.gz
+
+# Cursor skills lock (editor-only)
+skills-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
