@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-prettier/recommended"],
+  "ignoreFiles": ["src/styles/reset.css"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9_-]+(__[a-z][a-zA-Z0-9_-]*)?(--[a-z][a-zA-Z0-9_-]*)?$",
+    "custom-property-pattern": "^[a-z][a-z0-9-]*(__[a-z][a-z0-9-]+)?(--[a-z][a-z0-9-]+)?$",
+    "no-descending-specificity": null,
+    "alpha-value-notation": "number",
+    "color-function-notation": "modern",
+    "order/properties-alphabetical-order": true,
+    "order/custom-properties-alphabetical-order": true
+  }
+}
