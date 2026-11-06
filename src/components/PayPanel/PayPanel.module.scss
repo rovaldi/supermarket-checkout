@@ -1,0 +1,110 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--spacing--medium);
+  width: 100%;
+
+  @media (width >= 1024px) {
+    align-self: flex-start;
+    width: 42rem;
+  }
+
+  @media (width >= 1280px) {
+    gap: var(--spacing--large);
+  }
+}
+
+.panel {
+  background: var(--color__surface--secondary);
+  border: 1px solid var(--color__border--default);
+  border-radius: var(--rounded--content);
+  box-shadow: var(--shadow--panel);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--small);
+  padding: var(--spacing--large);
+  width: 100%;
+
+  &__label,
+  &__meta {
+    color: var(--color__text--muted);
+    font-size: var(--font-size--medium);
+    font-weight: var(--font-weight--regular);
+  }
+
+  &__label {
+    font-weight: var(--font-weight--medium);
+    margin: 0;
+  }
+
+  &__hint {
+    color: var(--color__text--muted);
+    font-size: var(--font-size--small);
+    font-weight: var(--font-weight--regular);
+  }
+
+  &__amount {
+    color: var(--color__text--primary);
+    font-size: var(--font-size--display);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--font-weight--semibold);
+    line-height: 1;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing--small);
+  }
+}
+
+.methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--small);
+}
+
+.method {
+  align-items: center;
+  background: var(--color__surface--secondary);
+  border: 1px solid var(--color__border--default);
+  border-radius: var(--rounded--medium);
+  color: var(--color__text--primary);
+  display: flex;
+  font-size: var(--font-size--medium);
+  font-weight: var(--font-weight--medium);
+  gap: var(--spacing--small);
+  height: var(--spacing--touch);
+  justify-content: center;
+  transition: background-color var(--transition--default);
+  width: 100%;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &--selected {
+    border: 2px solid var(--color__brand--primary);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled, &--selected) {
+      background: var(--color__brand--foreground);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &__icon {
+    color: var(--color__text--primary);
+    display: block;
+    height: var(--font-size--large);
+    max-height: none;
+    max-width: none;
+    width: var(--font-size--large);
+  }
+}
