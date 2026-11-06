@@ -1,0 +1,120 @@
+.row {
+  align-items: center;
+  background: var(--color__surface--secondary);
+  border-bottom: 1px solid var(--color__border--default);
+  cursor: pointer;
+  display: flex;
+  gap: var(--spacing--medium);
+  height: 7.2rem;
+  padding: 0 var(--spacing--medium);
+  transition: background-color var(--transition--default);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(.row--selected, .row--added) {
+      background: var(--color__brand--foreground);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &--added {
+    animation: row-in var(--transition--default) both;
+    background: var(--color__surface--success);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &--selected {
+    background: var(--color__surface--selected);
+  }
+
+  &__product {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--spacing--xsmall);
+    min-width: 0;
+  }
+
+  &__name {
+    color: var(--color__text--primary);
+    font-size: var(--font-size--large);
+    font-weight: var(--font-weight--medium);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__code {
+    color: var(--color__text--muted);
+    font-size: var(--font-size--medium);
+    font-weight: var(--font-weight--regular);
+  }
+
+  &__price,
+  &__amount {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    width: 11.2rem;
+  }
+
+  &__price {
+    color: var(--color__text--primary);
+    font-size: var(--font-size--body);
+    font-weight: var(--font-weight--regular);
+  }
+
+  &__amount {
+    color: var(--color__text--primary);
+    font-size: var(--font-size--large);
+    font-weight: var(--font-weight--semibold);
+  }
+
+  &__remove {
+    align-items: center;
+    background: var(--color__surface--secondary);
+    border: 1px solid var(--color__border--error);
+    border-radius: var(--rounded--medium);
+    display: flex;
+    flex-shrink: 0;
+    height: var(--spacing--touch);
+    justify-content: center;
+    transition: background-color var(--transition--default);
+    width: var(--spacing--touch);
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--color__surface--error);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &__trash {
+    color: var(--color__text--error);
+    display: block;
+    height: var(--font-size--large);
+    max-height: none;
+    max-width: none;
+    width: var(--font-size--large);
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+}
