@@ -25,7 +25,7 @@ const CartRow = ({
   };
 
   return (
-    <div
+    <tr
       className={clsx(
         styles.row,
         state === "added" && styles["row--added"],
@@ -33,28 +33,36 @@ const CartRow = ({
       )}
       onClick={onSelect}
     >
-      <div className={styles.row__product}>
-        <p className={styles.row__name}>{name}</p>
-        <p className={styles.row__code}>{code}</p>
-      </div>
-      <p className={styles.row__price}>{formatCents(unitPriceCents)}</p>
-      <QuantityStepper
-        value={quantity}
-        label={CART_ROW_COPY.QUANTITY(name)}
-        onHold={onHold}
-        onRelease={onRelease}
-        onCommit={onQuantity}
-      />
-      <p className={styles.row__amount}>{formatCents(lineTotalCents(unitPriceCents, quantity))}</p>
-      <button
-        className={styles.row__remove}
-        type="button"
-        aria-label={CART_ROW_COPY.REMOVE(name)}
-        onClick={remove}
-      >
-        <Icon className={styles.row__trash} name="trash" width={20} height={20} />
-      </button>
-    </div>
+      <td className={clsx(styles.row__cell, styles["row__cell--product"])}>
+        <div className={styles.row__product}>
+          <p className={styles.row__name}>{name}</p>
+          <p className={styles.row__code}>{code}</p>
+        </div>
+      </td>
+      <td className={clsx(styles.row__cell, styles.row__price)}>{formatCents(unitPriceCents)}</td>
+      <td className={clsx(styles.row__cell, styles.row__qty)}>
+        <QuantityStepper
+          value={quantity}
+          label={CART_ROW_COPY.QUANTITY(name)}
+          onHold={onHold}
+          onRelease={onRelease}
+          onCommit={onQuantity}
+        />
+      </td>
+      <td className={clsx(styles.row__cell, styles.row__amount)}>
+        {formatCents(lineTotalCents(unitPriceCents, quantity))}
+      </td>
+      <td className={clsx(styles.row__cell, styles.row__action)}>
+        <button
+          className={styles.row__remove}
+          type="button"
+          aria-label={CART_ROW_COPY.REMOVE(name)}
+          onClick={remove}
+        >
+          <Icon className={styles.row__trash} name="trash" width={20} height={20} />
+        </button>
+      </td>
+    </tr>
   );
 };
 

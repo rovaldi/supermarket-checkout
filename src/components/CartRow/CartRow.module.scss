@@ -1,29 +1,36 @@
 .row {
-  align-items: center;
-  background: var(--color__surface--secondary);
-  border-bottom: 1px solid var(--color__border--default);
   cursor: pointer;
-  display: flex;
-  gap: var(--spacing--medium);
-  min-height: 7.2rem;
-  padding: 0 var(--spacing--medium);
-  transition: background-color var(--transition--default);
+  height: 7.2rem;
 
-  &:last-child {
+  &__cell {
+    background: var(--color__surface--secondary);
+    border-bottom: 1px solid var(--color__border--default);
+    padding-left: var(--spacing--medium);
+    transition: background-color var(--transition--default);
+    vertical-align: middle;
+
+    &--product {
+      min-width: 0;
+    }
+  }
+
+  &:last-child &__cell {
     border-bottom: 0;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    &:hover:not(.row--selected, .row--added) {
+    &:hover:not(.row--selected, .row--added) &__cell {
       background: var(--color__brand--foreground);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    &__cell {
+      transition: none;
+    }
   }
 
-  &--added {
+  &--added &__cell {
     animation: row-in var(--transition--default) both;
     background: var(--color__surface--success);
 
@@ -32,13 +39,12 @@
     }
   }
 
-  &--selected {
+  &--selected &__cell {
     background: var(--color__surface--selected);
   }
 
   &__product {
     display: flex;
-    flex: 1;
     flex-direction: column;
     gap: var(--spacing--xsmall);
     min-width: 0;
@@ -48,6 +54,7 @@
     color: var(--color__text--primary);
     font-size: var(--font-size--large);
     font-weight: var(--font-weight--medium);
+    line-height: normal;
     overflow-wrap: anywhere;
   }
 
@@ -55,15 +62,23 @@
     color: var(--color__text--muted);
     font-size: var(--font-size--medium);
     font-weight: var(--font-weight--regular);
+    line-height: normal;
     overflow-wrap: anywhere;
   }
 
   &__price,
   &__amount {
-    flex-shrink: 0;
     font-variant-numeric: tabular-nums;
     text-align: right;
-    width: 8rem;
+  }
+
+  &__qty {
+    text-align: center;
+  }
+
+  &__action {
+    padding-right: var(--spacing--medium);
+    text-align: right;
   }
 
   &__price {
