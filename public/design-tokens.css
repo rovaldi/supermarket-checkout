@@ -20,7 +20,7 @@
   --color__surface--error: #fdecea;
 
   --font-family--primary:
-    system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    Inter, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --font-size--xsmall: 1.2rem;
   --font-size--small: 1.4rem;
