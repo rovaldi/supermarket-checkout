@@ -1,23 +1,24 @@
 # Guía de demostración
 
-Para ejecutar la aplicación, sigue las instrucciones del [README](../README.md).
+Esta guía recoge los códigos disponibles en el catálogo y algunos escenarios para comprobar el funcionamiento de la aplicación.
 
-```bash
-yarn install
-yarn dev
-```
+## 1. Acceso
 
-Abre la dirección local que indique Vite. La venta empieza vacía.
+Puedes probar la aplicación desde:
 
-## Introducir productos
+**[Supermarket Checkout – Demo](https://supermarket-checkout-rob.vercel.app/)**
 
-Puedes escribir los códigos directamente en el campo de producto o utilizar un lector de códigos de barras que funcione como teclado.
+También puedes ejecutarla localmente siguiendo las instrucciones del [README](../README.md).
 
-El lector introduce el código en el campo como si fuera un teclado. Si el autocomplete muestra una sugerencia, la primera pulsación de Enter la selecciona; después puedes añadir el producto con el botón «Añadir» o con una nueva pulsación de Enter. No se utiliza la cámara del dispositivo.
+La venta comienza vacía y no es necesario configurar ningún dato adicional.
 
-El catálogo contiene 20 productos de demostración:
+## 2. Catálogo de productos
 
-| Producto | Código | Precio |
+El catálogo incluye 20 productos de demostración.
+
+Los códigos utilizan el formato EAN-13 y tienen calculado correctamente su dígito de control. Todos utilizan el prefijo 200 y son identificadores creados exclusivamente para esta prueba, no referencias comerciales registradas.
+
+| Producto | Código EAN-13 | Precio |
 |---|---|---:|
 | Leche entera 1 L | `2000000750019` | 0,95 € |
 | Pan de barra | `2000000750026` | 0,60 € |
@@ -40,34 +41,127 @@ El catálogo contiene 20 productos de demostración:
 | Galletas María 800 g | `2000000750194` | 1,35 € |
 | Leche semidesnatada 1 L | `2000000750200` | 0,92 € |
 
-## Códigos para comprobar la validación
+## 3. Escenarios de demostración
 
-Además de los productos del catálogo, puedes utilizar estos dos ejemplos:
+### Añadir productos
 
-| Caso | Código | Resultado esperado |
-|---|---|---|
-| Dígito de control incorrecto | `2000000750027` | La aplicación muestra un error de código no válido y no añade el producto. |
-| EAN-13 válido, pero fuera del catálogo | `2000000750996` | La aplicación indica que no se ha encontrado ningún producto. |
+1. Introduce `2000000750019` en el campo de código.
+2. Comprueba que el botón «Añadir» se habilita al completar los 13 dígitos.
+3. Añade el producto.
+4. Comprueba que aparece en el listado y que el total se actualiza.
 
-El segundo código tiene una longitud y un dígito de control correctos, pero no corresponde a ninguno de los productos disponibles.
+### Repetir un producto
 
-## Otros casos que puedes probar
+1. Añade `2000000750019`.
+2. Introduce nuevamente el mismo código.
+3. Comprueba que se incrementa la cantidad de la línea existente, sin duplicar el producto.
 
-### Carrito
+### Autocompletado
 
-- Añadir el mismo producto varias veces: se incrementa la cantidad de una única línea.
-- Modificar manualmente la cantidad de un producto.
-- Eliminar un producto y utilizar la opción de deshacer.
-- Vaciar la venta y comprobar que el carrito queda vacío.
-- Comprobar cómo se actualizan los importes al cambiar las cantidades.
+1. Introduce los primeros tres dígitos de un código, por ejemplo `200`.
+2. Comprueba que aparecen las sugerencias del catálogo.
+3. Utiliza las flechas del teclado para desplazarte por ellas.
+4. Selecciona un producto y comprueba que su código se incorpora al campo.
+5. Utiliza Escape para cerrar la lista.
 
-### Cobro
+### Modificar cantidades
 
-- Intentar cobrar sin seleccionar un método de pago: el botón permanece deshabilitado.
-- Seleccionar efectivo, tarjeta o ticket restaurante.
-- Completar una venta y consultar el resumen.
-- Iniciar una nueva venta desde el resumen de la anterior.
+1. Añade un producto.
+2. Incrementa su cantidad.
+3. Comprueba que el importe de la línea y el total se actualizan.
+4. Intenta introducir una cantidad vacía, cero o decimal.
+5. Comprueba que se rechaza el valor y se restaura el anterior.
 
-Los métodos de pago y la impresión del ticket están simulados. No se realiza ningún cobro real ni se envía ningún documento a una impresora.
+### Eliminar productos
 
-Los códigos del catálogo son datos de demostración, no referencias comerciales de productos reales.
+1. Añade uno o varios productos.
+2. Elimina una línea.
+3. Comprueba que desaparece del listado y que aparece la opción de deshacer.
+4. Utiliza la opción para recuperar la línea eliminada.
+
+### Vaciar la venta
+
+1. Añade varios productos.
+2. Selecciona «Vaciar venta».
+3. Comprueba que aparece una confirmación.
+4. Confirma la acción y verifica que el carrito queda vacío.
+
+### Completar una venta
+
+1. Añade uno o varios productos.
+2. Selecciona un método de pago.
+3. Comprueba que se habilita el botón de cobro.
+4. Pulsa «Cobrar».
+5. Comprueba el estado «Cobrando…».
+6. Verifica que aparece el resumen de venta completada y la opción de iniciar otra venta.
+
+### Iniciar una nueva venta
+
+Después de completar el cobro, utiliza la opción de nueva venta y comprueba que el carrito vuelve a estar vacío.
+
+## 4. Casos de validación
+
+También se pueden probar los siguientes casos para comprobar el tratamiento de errores.
+
+| Entrada | Resultado esperado |
+|---|---|
+| Menos de 13 dígitos | «Añadir» permanece desactivado. |
+| `2000000750010` | Se informa de que el código no es válido por su dígito de control. |
+| `2000000750996` | Código EAN-13 válido, pero producto inexistente en el catálogo. |
+| Código con letras | No se permite añadir el producto. |
+
+**Código válido que no existe en el catálogo:**
+
+```text
+2000000750996
+```
+
+Este código permite comprobar que la validación EAN-13 y la búsqueda en el catálogo son operaciones diferenciadas.
+
+## 5. Comprobación de la API
+
+Si ejecutas el proyecto localmente, puedes consultar directamente los endpoints desde la terminal.
+
+**Buscar un producto por código:**
+
+```bash
+curl "http://127.0.0.1:5173/api/products?code=2000000750019"
+```
+
+**Buscar productos por prefijo:**
+
+```bash
+curl "http://127.0.0.1:5173/api/products?q=200"
+```
+
+**Registrar una venta de demostración:**
+
+```bash
+curl -X POST "http://127.0.0.1:5173/api/sales" \
+  -H "content-type: application/json" \
+  -d '{
+    "paymentMethod": "efectivo",
+    "lines": [
+      {
+        "code": "2000000750019",
+        "quantity": 1
+      }
+    ]
+  }'
+```
+
+La API utiliza el catálogo del servidor para obtener los precios y calcular el importe de la venta.
+
+El puerto puede variar si Vite detecta que el 5173 está ocupado. En ese caso, utiliza el que indique la terminal.
+
+## 6. Consideraciones
+
+- Los códigos deben introducirse manualmente.
+- No hay integración con lectores físicos ni cámara.
+- Los productos y sus precios son datos de demostración.
+- No se realizan pagos reales.
+- El ticket utiliza una numeración fija.
+- No hay impresión física ni persistencia de ventas.
+- Al recargar la aplicación se inicia una venta vacía.
+
+Para conocer más detalles sobre la arquitectura, las decisiones de implementación y las funcionalidades simuladas, consulta la [documentación de la entrega](entrega.md).
