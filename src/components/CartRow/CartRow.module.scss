@@ -5,7 +5,7 @@
   cursor: pointer;
   display: flex;
   gap: var(--spacing--medium);
-  height: 7.2rem;
+  min-height: 7.2rem;
   padding: 0 var(--spacing--medium);
   transition: background-color var(--transition--default);
 
@@ -48,15 +48,14 @@
     color: var(--color__text--primary);
     font-size: var(--font-size--large);
     font-weight: var(--font-weight--medium);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
 
   &__code {
     color: var(--color__text--muted);
     font-size: var(--font-size--medium);
     font-weight: var(--font-weight--regular);
+    overflow-wrap: anywhere;
   }
 
   &__price,
@@ -64,7 +63,7 @@
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
     text-align: right;
-    width: 11.2rem;
+    width: 8rem;
   }
 
   &__price {

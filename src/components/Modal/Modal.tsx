@@ -105,10 +105,24 @@ const Modal = ({
 
     const dialog = dialogRef.current;
     const previous = document.activeElement;
+    const root = document.getElementById("root");
+    const focusable = () =>
+      dialog
+        ? Array.from(
+            dialog.querySelectorAll<HTMLElement>(
+              "button:not(:disabled), [href], input:not(:disabled)",
+            ),
+          )
+        : [];
 
-    dialog?.focus();
+    const initial = focusable();
+    (initial[0] ?? dialog)?.focus({ preventScroll: true });
     openModals += 1;
     document.body.classList.add("checkout-modal");
+
+    if (root) {
+      root.inert = true;
+    }
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && onCloseRef.current) {
@@ -121,9 +135,7 @@ const Modal = ({
         return;
       }
 
-      const items = Array.from(
-        dialog.querySelectorAll<HTMLElement>("button:not(:disabled), [href], input"),
-      );
+      const items = focusable();
       const first = items[0];
       const last = items[items.length - 1];
 
@@ -132,10 +144,21 @@ const Modal = ({
         return;
       }
 
-      if (event.shiftKey && document.activeElement === first) {
+      const active = document.activeElement;
+
+      if (active === dialog) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+        return;
+      }
+
+      if (event.shiftKey && active === first) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+        return;
+      }
+
+      if (!event.shiftKey && active === last) {
         event.preventDefault();
         first.focus();
       }
@@ -149,6 +172,10 @@ const Modal = ({
 
       if (openModals === 0) {
         document.body.classList.remove("checkout-modal");
+
+        if (root) {
+          root.inert = false;
+        }
       }
 
       if (previous instanceof HTMLElement && previous.isConnected) {

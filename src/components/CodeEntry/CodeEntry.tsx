@@ -25,6 +25,7 @@ const CodeEntry = ({ autoFocus, invalid, onValueChange, onLookup }: CodeEntryPro
   const listId = useId();
   const inputId = useId();
   const hintId = useId();
+  const labelId = useId();
   const canAdd = value.length === 13 && isDigitString(value) && !pending;
   const listOpen = open && suggestions.length > 0;
 
@@ -194,7 +195,7 @@ const CodeEntry = ({ autoFocus, invalid, onValueChange, onLookup }: CodeEntryPro
   return (
     <div ref={rootRef}>
       <form className={styles.entry} onSubmit={onSubmit}>
-        <label className={styles.entry__label} htmlFor={inputId}>
+        <label className={styles.entry__label} id={labelId} htmlFor={inputId}>
           {CODE_ENTRY_COPY.LABEL}
         </label>
         <div className={styles.entry__row}>
@@ -233,7 +234,13 @@ const CodeEntry = ({ autoFocus, invalid, onValueChange, onLookup }: CodeEntryPro
               />
             </div>
             {listOpen ? (
-              <ul ref={listRef} className={styles.entry__list} id={listId} role="listbox">
+              <ul
+                ref={listRef}
+                className={styles.entry__list}
+                id={listId}
+                role="listbox"
+                aria-labelledby={labelId}
+              >
                 {suggestions.map((product, index) => (
                   <li
                     key={product.code}

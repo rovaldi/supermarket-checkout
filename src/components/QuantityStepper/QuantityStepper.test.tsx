@@ -65,10 +65,12 @@ describe("QuantityStepper", () => {
     const { user, input, onCommit } = renderStepper();
 
     await user.clear(input);
+    expect(input).not.toHaveAttribute("aria-valuenow");
     await user.tab();
 
     expect(onCommit).not.toHaveBeenCalled();
     expect(input).toHaveValue("1");
+    expect(input).toHaveAttribute("aria-valuenow", "1");
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(screen.getByText(QUANTITY_STEPPER_COPY.INVALID)).toBeInTheDocument();
   });

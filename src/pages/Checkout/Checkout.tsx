@@ -57,6 +57,7 @@ const Checkout = () => {
   const [closedAt, setClosedAt] = useState<Date | null>(null);
   const [entryKey, setEntryKey] = useState(0);
   const [focusEntry, setFocusEntry] = useState(true);
+  const [addedNotice, setAddedNotice] = useState<string | null>(null);
 
   const lookup = async (code: string): Promise<LookupResult> => {
     const failure = ean13Failure(code);
@@ -74,7 +75,12 @@ const Checkout = () => {
         return "unknown";
       }
 
-      sale.addProduct(product);
+      const outcome = sale.addProduct(product);
+      setAddedNotice(
+        outcome === "incremented"
+          ? CHECKOUT_COPY.QUANTITY_UPDATED(product.name)
+          : CHECKOUT_COPY.ADDED(product.name),
+      );
       setFieldNotice(null);
       return "added";
     } catch (error) {
@@ -116,6 +122,7 @@ const Checkout = () => {
     setMethod(null);
     setFieldNotice(null);
     setChargeError(false);
+    setAddedNotice(null);
     setFocusEntry(true);
     setEntryKey((key) => key + 1);
   };
@@ -157,6 +164,7 @@ const Checkout = () => {
     setMethod(null);
     setFieldNotice(null);
     setChargeError(false);
+    setAddedNotice(null);
     setFocusEntry(true);
     setEntryKey((key) => key + 1);
     setDialog(null);
@@ -179,6 +187,9 @@ const Checkout = () => {
           <h1 className="visually-hidden" id={saleTitleId}>
             {CHECKOUT_COPY.SALE_TITLE}
           </h1>
+          <p className="visually-hidden" role="status">
+            {addedNotice}
+          </p>
           <CodeEntry
             key={entryKey}
             autoFocus={focusEntry}

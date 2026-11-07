@@ -5,6 +5,8 @@ export const CHECKOUT_COPY = {
   INVALID_CODE: "El código introducido no es válido. Comprueba los dígitos e inténtalo de nuevo.",
   PRODUCT_NOT_FOUND: "No se ha encontrado ningún producto con este código.",
   LOOKUP_ERROR: "No se ha podido consultar el producto.",
+  ADDED: (name: string) => `Se ha añadido ${name}`,
+  QUANTITY_UPDATED: (name: string) => `Cantidad de ${name} actualizada`,
   METHOD_CASH: "Efectivo",
   METHOD_CARD: "Tarjeta",
   METHOD_MEAL: "Ticket restaurante",

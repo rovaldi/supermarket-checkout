@@ -12,7 +12,7 @@ const QuantityStepper = ({ value, label, onHold, onRelease, onCommit }: Quantity
   const errorId = useId();
   const text = draft ?? String(value);
   const shown = /^\d+$/.test(text) ? Number(text) : value;
-  const announced = shown >= 1 ? shown : value;
+  const announced = /^\d+$/.test(text) && Number(text) >= 1 ? Number(text) : undefined;
   const atMin = shown <= 1;
 
   const commit = (nextText: string) => {
